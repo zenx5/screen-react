@@ -1,19 +1,16 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Home from './components/home/index.jsx';
-import Loading from './components/loading/index.jsx';
-import Config from './components/config/index.jsx';
+import { Load, Slider, Config } from './routes'
 
-function App() {
+
+export default function App() {
   return (
     <div className="App">
       <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="loading" element={<Loading/>} />
-          <Route path="config" element={<Config/>} />
+          <Route path="/" element={<Slider />} />
+          <Route path="/load" element={<Load />} />
+          <Route path="/config" element={<Config />} />
       </Routes>
     </div>
   );
 }
-
-export default App;
