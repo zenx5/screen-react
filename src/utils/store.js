@@ -1,9 +1,10 @@
 import { createStore, combineReducers } from 'redux'
-import { routeReducer } from '../reducers'
+import { routeReducer, configurationReducer } from '../reducers'
 
 //Store
 const reducers = combineReducers({
     routes: routeReducer
+    configuration: configurationReducer
 })
 
 export const store = createStore(

@@ -1,12 +1,26 @@
 import { 
-    actionSetRoute,
-    actionBackRoute,
-    actionFrontRoute,
+   actionSetRoute,
+   actionBackRoute,
+   actionFrontRoute,
  } from './routeActions'
 
- export {
-    //routeActions
-    actionSetRoute,
-    actionBackRoute,
-    actionFrontRoute,
- }
+import {
+   actionEnableSlider,
+   actionDisableSlider,
+   actionToggleSlider,
+   actionAddSlick,  
+   actionRemoveSlick,
+} from './configurationActions'
+
+export {
+   //routeActions
+   actionSetRoute,
+   actionBackRoute,
+   actionFrontRoute,
+   //configurationActions
+   actionEnableSlider,
+   actionDisableSlider,
+   actionToggleSlider,
+   actionAddSlick,  
+   actionRemoveSlick,
+}
