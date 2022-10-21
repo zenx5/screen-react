@@ -1,9 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { LinearProgress, Box } from "@mui/material"
 
 
 export default function Load(){
     const [progress, setProgress] = useState(0)
+
+    const getData = () => {
+        
+    }
     
     const styleContainer = {
         position: 'relative',
