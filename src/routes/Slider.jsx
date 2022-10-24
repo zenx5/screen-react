@@ -40,8 +40,8 @@ export default function Load(){
             // onChange={handleChange}
             interval={5000}
             animation="slide"
-            // indicators={false}
-            // stopAutoPlayOnHover
+             indicators={false}
+             stopAutoPlayOnHover={false}
             // swipe
             className="my-carousel"
         >
@@ -56,7 +56,7 @@ function Item(props)
 {
     return (
         <Paper>
-            <img height='320' alt="" src={props.item.source_url} />
+            <img style={{height:'100vh'}} alt="" src={props.item.source_url} />
         </Paper>
     )
 }
