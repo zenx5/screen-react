@@ -1,38 +1,19 @@
-import { useState, useEffect } from 'react'
+
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Button } from '@mui/material'
-import { query } from './../utils'
+import { Paper } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 
-export default function Load(){
-    const [progress, setProgress] = useState(0);
-    const [items, setItems] = useState([]);
 
-    useEffect( () => {
-        // query.getData('https://loto.kavavdigital.com/wp-json/wp/v2/media');
-
-        fetch('https://loto.kavavdigital.com/wp-json/wp/v2/media')
-            .then( response => response.json() )
-            .then( json => {
-                console.log(json);
-                // saveData(json);
-                setItems(json);
-            } )
-    }, [] );
-
-    const saveData = datas => {
-        const imgs = [];
-        datas.forEach( data => {
-            query.getImageData( data.source_url );
-        });
+export default function Slider({ items }){
+    const navigate = useNavigate();
+    if( items.length === 0 ){
+        navigate('/')
     }
+
     
-    const styleContainer = {
-        position: 'relative',
-        top: '50vh',
-        width: '80%',
-        left: '10%',
-    }
+
+  
 
     return (
         <Carousel

@@ -16,6 +16,6 @@ export default function Load(){
     
     return(
         <Box style={styleContainer}>
-            <LinearProgress variant='determinate' value={progress}/>
+            <LinearProgress />
         </Box>)
 }
