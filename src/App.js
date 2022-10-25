@@ -10,12 +10,12 @@ export default function App() {
   const url = window.location.href
 
   useEffect( () => {
-    
+    if( url.indexOf('config')!==-1 ) return;
     if( items.length === 0 && url.indexOf('main')!==-1 ){
       navigate('/')
     }else{
       getItems()
-      setInterval(getItems, 30000)
+      setInterval(getItems, localStorage.getItem('intervalRefresh')||5000 )
       setTimeout(()=>{
         navigate('/main')
       },2000)
@@ -24,7 +24,7 @@ export default function App() {
   }, [] );
 
   const getItems = () => {
-    fetch('https://loto.kavavdigital.com/wp-json/wp/v2/media')
+    fetch('https://localhost/wp-json/wp/v2/media')
       .then( response => response.json() )
       .then( json => {
           console.log(json);
@@ -38,7 +38,7 @@ export default function App() {
       <Routes>
           <Route path="/main" element={<Slider items={items} />} />
           <Route path="/" element={<Load />} />
-          <Route path="/config" element={<Config />} />
+          <Route path="/config" element={<Config update />} />
       </Routes>
     </div>
   );
