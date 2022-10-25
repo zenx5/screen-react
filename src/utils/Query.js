@@ -1,6 +1,6 @@
 import axios from "axios";
 
-function getData( url ) {
+export const getData = ( url ) => {
     axios.get(url)
         .then( data => {
             console.log(data.data)
@@ -11,7 +11,7 @@ function getData( url ) {
         })
 }
 
-function getImageData( url ) {
+export const getImageData = ( url ) => {
     axios.get(url)
         .then( data => {
             console.log(data)
@@ -21,9 +21,3 @@ function getImageData( url ) {
             console.log(error)
         })
 }
-
-const query = {
-    getData,
-}
-
-export default query;
