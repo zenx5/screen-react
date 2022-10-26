@@ -16,21 +16,31 @@ export default function App() {
     }else{
       getItems()
       setInterval(getItems, localStorage.getItem('intervalRefresh')||5000 )
-      setTimeout(()=>{
-        navigate('/main')
-      },2000)
+      
     }
     
   }, [] );
 
   const getItems = () => {
-    fetch('https://localhost/wp-json/wp/v2/media')
+    try{
+      console.log(process.env.REACT_APP_URL_API)
+      if(items.length === 0){
+        setTimeout(()=>{
+          if(items.length>0){
+            navigate('/main')
+          }
+        },2000)
+      }
+      fetch(process.env.REACT_APP_URL_API)
       .then( response => response.json() )
       .then( json => {
           console.log(json);
-          // saveData(json);
           setItems(json);
       } )
+    }catch(error){
+      console.log('error')
+    }
+    
   }
 
   return (
