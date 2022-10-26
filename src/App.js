@@ -13,34 +13,23 @@ export default function App() {
     if( url.indexOf('config')!==-1 ) return;
     if( items.length === 0 && url.indexOf('main')!==-1 ){
       navigate('/')
+      getItems()
+    }
+    else if( items.length > 0 ){
+      navigate('/main')
     }else{
       getItems()
-      setInterval(getItems, localStorage.getItem('intervalRefresh')||5000 )
-      
     }
     
-  }, [] );
+  }, [items] );
 
-  const getItems = () => {
+  const getItems = async () => {
     try{
-      console.log(process.env.REACT_APP_URL_API)
-      if(items.length === 0){
-        setTimeout(()=>{
-          if(items.length>0){
-            navigate('/main')
-          }
-        },2000)
-      }
-      fetch(process.env.REACT_APP_URL_API)
-      .then( response => response.json() )
-      .then( json => {
-          console.log(json);
-          setItems(json);
-      } )
+      const data = await fetch(`${process.env.REACT_APP_URL_API}?client=21`).then( response => response.json() ) 
+      setItems( prevItems => data )      
     }catch(error){
       console.log('error')
-    }
-    
+    }    
   }
 
   return (
