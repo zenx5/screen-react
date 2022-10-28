@@ -11,6 +11,7 @@ export default function App() {
   const url = window.location.href
 
   useEffect( () => {
+    navigate('/')
     getItems();
   }, [] );
 
@@ -25,18 +26,19 @@ export default function App() {
       if( data.length === 0  ){
         navigate('/')
         getItems();
+        //useLocalImage()
       }
       else if( data.length > 0 ){
         navigate('/main')
-        setTimeout( _ => getItems(), 10000 );
+        setTimeout( _ => getItems(), localStorage.getItem('intervalSlider')||10000 );
       }else{
         getItems()
       }
       data.forEach( (slider, index) => {
-        axios.get('localhost:5000', {
-          filename: slider.type+index,
-          url: slider.src
-        })
+        // axios.get('localhost:5000', {
+        //   filename: slider.type+index,
+        //   url: slider.src
+        // })
       });
 
     }catch(error){
