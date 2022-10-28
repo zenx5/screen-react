@@ -1,7 +1,7 @@
-import express from 'express'
-import morgan from 'morgan';
-import { router } from './utils/routerServer'
-import bodyParser from 'body-parser'
+const express = require('express')
+const morgan = require('morgan')
+const { router } = require('./utils/routerServer')
+const bodyParser = require('body-parser')
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -1,6 +1,6 @@
-import fs from 'fs'
-import http from 'http'
-import { Router } from "express";
+const fs = require('fs')
+const http = require('http')
+const { Router } = require("express")
 
 const router = Router()
 
@@ -32,6 +32,6 @@ router.post('/download-configuration', async (req, res) => {
 })
 
 
-export {
+module.exports = {
     router
 }
