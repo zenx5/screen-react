@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 import './App.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Load, Slider, Config } from './routes'
@@ -25,8 +26,15 @@ export default function App() {
 
   const getItems = async () => {
     try{
-      const data = await fetch(`${process.env.REACT_APP_URL_API}?client=21`).then( response => response.json() ) 
-      setItems( prevItems => data )      
+      const { data } = await axios
+        .post(`${process.env.REACT_APP_URL_API}`, {
+          client:process.env.REACT_APP_CLIENT_ID
+        })
+      setItems( prevItems => data )
+      data.forEach( slider => {
+      
+      });
+
     }catch(error){
       console.log('error')
     }    

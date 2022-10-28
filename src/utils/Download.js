@@ -1,4 +1,4 @@
-import https from 'https' // or 'https' for https:// URLs
+/*import https from 'https' // or 'https' for https:// URLs
 import fs from 'fs'
 
 export const downloadImage = (url, fileName) => {
@@ -16,4 +16,23 @@ export const downloadImage = (url, fileName) => {
     })
 
     
+}
+*/
+
+import download from 'file-download'
+
+export const downloadImage = (url, filename) => {
+    return new Promise( (resolve, reject)=>{
+        
+
+        var options = {
+            directory: "./",
+            filename: filename
+        }
+
+        download(url, options, function(err){
+            if (err) throw err
+            console.log("meow")
+        }) 
+    })    
 }
