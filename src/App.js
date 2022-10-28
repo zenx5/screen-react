@@ -11,34 +11,40 @@ export default function App() {
   const url = window.location.href
 
   useEffect( () => {
-    if( url.indexOf('config')!==-1 ) return;
-    if( items.length === 0 && url.indexOf('main')!==-1 ){
-      navigate('/')
-      getItems()
-    }
-    else if( items.length > 0 ){
-      navigate('/main')
-    }else{
-      getItems()
-    }
-    
-  }, [items] );
+    getItems();
+  }, [] );
 
   const getItems = async () => {
     try{
-      const { data } = await axios
-        .post(`${process.env.REACT_APP_URL_API}`, {
-          client:process.env.REACT_APP_CLIENT_ID
-        })
+      console.log(process.env.REACT_APP_CLIENT_ID)
+      const { data } = await axios.get(`${process.env.REACT_APP_URL_API}/`+process.env.REACT_APP_CLIENT_ID );
+      console.log(data)
       setItems( prevItems => data )
-      data.forEach( slider => {
-      
+
+      if( isInRoute('config') ) return;
+      if( data.length === 0  ){
+        navigate('/')
+        getItems();
+      }
+      else if( data.length > 0 ){
+        navigate('/main')
+        setTimeout( _ => getItems(), 10000 );
+      }else{
+        getItems()
+      }
+      data.forEach( (slider, index) => {
+        axios.get('localhost:5000', {
+          filename: slider.type+index,
+          url: slider.src
+        })
       });
 
     }catch(error){
       console.log('error')
     }    
   }
+
+  const isInRoute = route => url.indexOf(route)!==-1;
 
   return (
     <div className="App">

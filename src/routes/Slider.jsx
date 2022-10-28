@@ -7,15 +7,6 @@ import ItemCarousel from '../components/ItemCarousel';
 
 
 export default function Slider({ items }){
-    const navigate = useNavigate();
-    if( items.length === 0 ){
-        navigate('/')
-        console.log("rederigido por items")
-    }
-
-    
-
-  
 
     return (
         <Carousel
