@@ -9,24 +9,26 @@ export default function App() {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
   const url = window.location.href
+  const userId = localStorage.getItem('userId')||0;
 
   useEffect( () => {
+    if( isInRoute('config') ) return;
     navigate('/')
     getItems();
   }, [] );
 
+  const getLocalImages = _ => {}
+
   const getItems = async () => {
     try{
-      console.log(process.env.REACT_APP_CLIENT_ID)
-      const { data } = await axios.get(`${process.env.REACT_APP_URL_API}/`+process.env.REACT_APP_CLIENT_ID );
+      const { data } = await axios.get(`${process.env.REACT_APP_URL_API}/`+userId );
       console.log(data)
       setItems( prevItems => data )
 
-      if( isInRoute('config') ) return;
       if( data.length === 0  ){
         navigate('/')
+        getLocalImages()
         getItems();
-        //useLocalImage()
       }
       else if( data.length > 0 ){
         navigate('/main')
@@ -34,15 +36,15 @@ export default function App() {
       }else{
         getItems()
       }
+      await axios.get('http://localhost:5000/delete')
       data.forEach( (slider, index) => {
-        // axios.get('localhost:5000', {
-        //   filename: slider.type+index,
-        //   url: slider.src
-        // })
+        axios.get('http://localhost:5000?filename='+slider.type+index+'&url='+slider.src )
       });
 
     }catch(error){
       console.log('error')
+      getLocalImages();
+      getItems();
     }    
   }
 

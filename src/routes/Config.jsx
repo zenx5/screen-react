@@ -3,7 +3,10 @@ import { LinearProgress, Box, FormControl, InputLabel, FormHelperText, Input } f
 
 
 export default function Config(){
-    const [progress, setProgress] = useState(0)
+    const [name, setName] = useState( localStorage.getItem('name')||'' )
+    const [intervalSlider, setIntervalSlider] = useState( localStorage.getItem('intervalSlider')||5000 )
+    const [intervalRefresh, setIntervalRefresh] = useState( localStorage.getItem('intervalRefresh')||10000 )
+    const [userId, setUserId] = useState( localStorage.getItem('userId')||0 );
     
     const styleContainer = {
         position: 'relative',
@@ -16,33 +19,49 @@ export default function Config(){
         margin: '5px',
     }
 
-    const updateIntervalDuration = _ => {
-        
+    const updateName = event => {
+        let value = event.target.value
+        localStorage.setItem('name', value )
+        setName(value)
     }
-    const updateIntervalRefresh = _ => {}
+    const updateIntervalDuration = event => {
+        let value = event.target.value
+        localStorage.setItem('intervalSlider', value )
+        setIntervalSlider(value)
+    }
+    const updateIntervalRefresh = event => {
+        let value = event.target.value
+        localStorage.setItem('intervalRefresh', value )
+        setIntervalRefresh(value)
+    }
+    const updateUserId = event => {
+        let value = event.target.value
+        localStorage.setItem('userId', value )
+        setUserId(value)
+    }
 
     return(
         <Box style={styleContainer}>
             
             <FormControl style={styleForm}>
                 <InputLabel htmlFor="name">name</InputLabel>
-                <Input id="name" aria-describedby="helper-text-name" />
+                <Input id="name" aria-describedby="helper-text-name" onChange={updateName} value={name} />
                 <FormHelperText id="helper-text-name">enter your name.</FormHelperText>
             </FormControl>
             <FormControl style={styleForm}>
-                <InputLabel htmlFor="token">token</InputLabel>
-                <Input id="token" aria-describedby="helper-text-token" />
-                <FormHelperText id="helper-text-token">access token</FormHelperText>
+                <InputLabel htmlFor="id">id</InputLabel>
+                <Input type="number" id="id" aria-describedby="helper-text-id" onChange={updateUserId} value={userId} />
+                <FormHelperText id="helper-text-id">access id</FormHelperText>
             </FormControl>
 
             <FormControl style={styleForm}>
-                <InputLabel htmlFor="duration" onChange={updateIntervalDuration}>default duration</InputLabel>
-                <Input type="number" id="duration" aria-describedby="helper-text-duration" />
+                <InputLabel htmlFor="duration" >default duration</InputLabel>
+                <Input type="number" id="duration" aria-describedby="helper-text-duration" onChange={updateIntervalDuration} value={intervalSlider} />
                 <FormHelperText id="helper-text-duration">interval by defaul that change the carousel.</FormHelperText>
             </FormControl>
             <FormControl style={styleForm}>
-                <InputLabel htmlFor="refresh" onChange={updateIntervalRefresh}>refresh time</InputLabel>
-                <Input type="number" id="refresh" aria-describedby="helper-text-refresh" />
+                <InputLabel htmlFor="refresh">refresh time</InputLabel>
+                <Input type="number" id="refresh" aria-describedby="helper-text-refresh" onChange={updateIntervalRefresh} value={intervalRefresh} />
                 <FormHelperText id="helper-text-refresh">interval time for update the data.</FormHelperText>
             </FormControl>
             <FormControl style={styleForm}>

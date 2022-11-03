@@ -17,7 +17,7 @@ export default function Slider({ items }){
             className="my-carousel"
         >
             {
-                items.map( (item, i) => <ItemCarousel key={item.src} src={item.src} /> )
+                items.map( (item, i) => <ItemCarousel key={item.id} src={item.src} /> )
             }
         </Carousel>
     )
