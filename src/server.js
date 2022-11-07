@@ -35,7 +35,7 @@ app.get('/', async (req, res) => {
     const url = req.param('url').replace('https','http');
 
     await new Promise( (resolve, reject)=>{
-        const file = fs.createWriteStream( `./src/downloads/${filename}.png` );
+        const file = fs.createWriteStream( `./public/downloads/${filename}.png` );
         http.get(url, function(response) {
             response.pipe(file);
             // after download completed close filestream
@@ -50,20 +50,27 @@ app.get('/', async (req, res) => {
     })
 })
 app.get('/delete', async (req, res) => {
-    const folder = './src/downloads';
+    const folder = './public/downloads';
     deleteFolder(folder);
     fs.mkdirSync(folder);
 
     res.json(true);
 })
-app.get('/getImages', async (req, res) => {
-    const folder = './src/downloads';
+app.get('/getImagesCount', async (req, res) => {
+    const folder = './public/downloads';
     let files = [];
     if( fs.existsSync(folder) ) {
         files = fs.readdirSync(folder);
+        const data = files.map( (file, index) => {
+            return {
+                src: './downloads/'+file,
+                id: index
+            }
+        })
+        return res.json( data )
     }
 
-    res.json(files);
+    res.json([]);
 })
 
 

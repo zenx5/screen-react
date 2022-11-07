@@ -17,7 +17,13 @@ export default function App() {
     getItems();
   }, [] );
 
-  const getLocalImages = _ => {}
+  const getLocalImages = async _ => {
+    const files = await axios.get('http://localhost:5000/getImagesCount');
+    setTimeout( _ => getItems(), localStorage.getItem('intervalRefresh')||5000 );
+    console.log(files)
+    setItems( prevItems => files.data )
+    navigate('/main')
+  }
 
   const getItems = async () => {
     try{
@@ -26,9 +32,7 @@ export default function App() {
       setItems( prevItems => data )
 
       if( data.length === 0  ){
-        navigate('/')
-        getLocalImages()
-        getItems();
+        navigate('/config')
       }
       else if( data.length > 0 ){
         navigate('/main')
@@ -43,8 +47,7 @@ export default function App() {
 
     }catch(error){
       console.log('error')
-      getLocalImages();
-      getItems();
+      await getLocalImages();
     }    
   }
 
